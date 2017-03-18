@@ -9,5 +9,6 @@ HEADERS += \
     algorithms.h \
     base.h \
     sort.h \
-    heap.h
+    heap.h \
+    binarytree.h
 
