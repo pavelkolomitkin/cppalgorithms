@@ -12,3 +12,6 @@ HEADERS += \
     heap.h \
     binarytree.h
 
+DISTFILES += \
+    .gitignore
+
