@@ -10,7 +10,10 @@ HEADERS += \
     base.h \
     sort.h \
     heap.h \
-    binarytree.h
+    binarytree.h \
+    quicksort.h \
+    binarysearch.h \
+    search.h
 
 DISTFILES += \
     .gitignore

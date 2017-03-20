@@ -1,65 +1,60 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
-#include "binarytree.h"
+#include "quicksort.h"
+#include "binarysearch.h"
 
 using namespace std;
 
-using algorithms::search::BinaryTree;
+using algorithms::search::binarySearch;
+using algorithms::search::ITEM_NOT_FOUNT_INDEX;
+using algorithms::sort::quickSort;
 
-template<typename Item, typename Key>
-void walkTree(std::ostream& stream, const BinaryTree<Item, Key>* tree)
+template<typename Item, typename SizeType>
+void showArray(Item array[], SizeType size)
 {
-    if (tree != nullptr)
+    for (SizeType i = 0; i < size; i++)
     {
-        walkTree(stream, tree->getLeft());
-        stream << "key: " << tree->getKey() << " value: " << tree->getItem() << std::endl;
-        walkTree(stream, tree->getRight());
+        cout << "[" << i << "] = " << array[i] << endl;
     }
+
+    cout << endl;
 }
 
 int main()
 {
-    int rootKey = 55;
-    float rootItem = 3.14;
-
-    BinaryTree<float, int>* root = BinaryTree<float, int>::createTree(rootKey, rootItem);
-
-    const int maxTreeNodes = 50;
-    const int min = 0;
-    const int max = 500;
-
     srand(time(nullptr));
-    for (int i = 0; i < maxTreeNodes; i++)
-    {
-        float item = (float)rand() / (float) RAND_MAX;
-        int key  = min + (rand() % (int)(max - min + 1));
 
-        root->insert(BinaryTree<float, int>::createTree(key, item));
+    const int MAX_ITEMS = 100;
+
+    float* array = new float[MAX_ITEMS];
+    float minValue = 20.6;
+    float maxValue = 98.1;
+
+    float randValue = 0.0;
+
+    for (int i = 0; i < MAX_ITEMS; i++)
+    {
+        randValue = minValue + (maxValue - minValue) * ((float)rand() / (float) RAND_MAX);
+        array[i] = randValue;
     }
 
-    walkTree(std::cout, root);
+    quickSort(array, 0, MAX_ITEMS - 1);
+    showArray(array, MAX_ITEMS);
 
-    const BinaryTree<float, int>* minNode = root->minimum();
-    cout << "Minimum key: " << minNode->getKey() << " value: " << minNode->getItem() << endl;
-
-    const BinaryTree<float, int>* maxNode = root->maximum();
-    cout << "Maximum key: " << maxNode->getKey() << " value: " << maxNode->getItem() << endl;
-
-    int randKey  = min + (rand() % (int)(max - min + 1));
-    cout << "Searching item with key = " << randKey << "..." << endl;
-
-    BinaryTree<float, int>* searchItem = root->search(randKey);
-    if (searchItem != nullptr)
+    int searchIndex = binarySearch(randValue, array, 0, MAX_ITEMS - 1);
+    if (searchIndex != ITEM_NOT_FOUNT_INDEX)
     {
-        cout << "This value is: " << searchItem->getItem() << endl;
+        cout << "Item with value: " << randValue << " has index " << searchIndex << endl;
     }
     else
     {
-        cout << "Item does not exist!" << endl;
+        cout << "Item not found" << endl;
     }
 
-    delete root;
+
+    delete[] array;
+
 
     return 0;
 }
