@@ -13,7 +13,15 @@ HEADERS += \
     binarytree.h \
     quicksort.h \
     binarysearch.h \
-    search.h
+    search.h \
+    queue.h \
+    arraybasedqueue.h \
+    heapsort.h \
+    exceptions/queueexception.h \
+    exceptions/base.h \
+    graph/graph.h \
+    graph/vertex.h \
+    graph/adjancencylistgraph.h
 
 DISTFILES += \
     .gitignore
